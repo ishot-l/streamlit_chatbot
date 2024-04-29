@@ -1,0 +1,17 @@
+# Use Python 3.9-slim-buster as the base image
+FROM python:latest
+
+# Set the working directory
+WORKDIR /app
+
+# pipしたパッケージのbuild用
+RUN apt-get update && apt-get -y install build-essential
+
+# Copy the requirements.txt file
+COPY requirements.txt .
+
+# Install the required packages
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Start Jupyter Lab
+CMD ["jupyter-lab", "--ip=0.0.0.0", "--allow-root", "--no-browser"]
